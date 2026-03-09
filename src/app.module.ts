@@ -17,12 +17,12 @@ import * as path from 'path';
         watch: true,
       },
       resolvers: [
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-        new HeaderResolver(['x-custom-lang']),
+        { use: QueryResolver, options: ['lang'] }, //take lang from query
+        AcceptLanguageResolver,                    //take Accept-Language header
+        new HeaderResolver(['custom-lang']),     //take custom-lang header
       ],
     }),
-  ],
+],
   providers: [],
 })
 export class AppModule {}
