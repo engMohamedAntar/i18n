@@ -32,6 +32,8 @@ export class UsersController {
     @Param('id')
     id: MongoIdDto,
   ): Promise<User> {
+    console.log('entered here');
+    
     return this.userService.findUserById(id);
   }
 

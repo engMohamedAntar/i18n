@@ -2,9 +2,18 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongoModule } from './mongo/mongo.module';
-import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
+import {
+  AcceptLanguageResolver,
+  HeaderResolver,
+  I18nModule,
+  I18nValidationExceptionFilter,
+  I18nValidationPipe,
+  QueryResolver,
+} from 'nestjs-i18n';
 import * as path from 'path';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 
+//app.module
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -18,11 +27,11 @@ import * as path from 'path';
       },
       resolvers: [
         { use: QueryResolver, options: ['lang'] }, //take lang from query
-        AcceptLanguageResolver,                    //take Accept-Language header
-        new HeaderResolver(['custom-lang']),     //take custom-lang header
+        AcceptLanguageResolver, //take Accept-Language header
+        new HeaderResolver(['custom-lang']), //take custom-lang header
       ],
     }),
-],
+  ],
   providers: [],
 })
 export class AppModule {}

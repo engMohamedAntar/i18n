@@ -22,6 +22,8 @@ export class UserService {
   async findUserById(id: MongoIdDto): Promise<User> {
     const user = await this.userModel.findById(id);
     if (!user) {
+      console.log('entered here');
+      
       // throw new NotFoundException(`Not found user ${id}`);
       return this.i18n.t('test.NotFound', { lang: I18nContext.current().lang });
     }
