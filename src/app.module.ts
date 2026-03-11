@@ -6,12 +6,9 @@ import {
   AcceptLanguageResolver,
   HeaderResolver,
   I18nModule,
-  I18nValidationExceptionFilter,
-  I18nValidationPipe,
   QueryResolver,
 } from 'nestjs-i18n';
 import * as path from 'path';
-import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 
 //app.module
 @Module({

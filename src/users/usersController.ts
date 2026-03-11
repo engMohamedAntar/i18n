@@ -6,14 +6,12 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserService } from './users.service';
-import { UserResponseDto } from './dtos/user-response.dto';
 import { User } from './schemas/user.schema';
 import { MongoIdDto } from './dtos/mongo-id.dto';
 import { ParseMongoIdPipe } from '../mongo/pipes/parse-mongo-id.pipe';
@@ -30,10 +28,8 @@ export class UsersController {
   @Get(':id')
   async findOne(
     @Param('id')
-    id: MongoIdDto,
-  ): Promise<User> {
-    console.log('entered here');
-    
+    id: string,
+  ): Promise<User> {    
     return this.userService.findUserById(id);
   }
 

@@ -1,6 +1,5 @@
 //create-user.dto
-import { IsEmail, IsString, Length } from 'class-validator';
-import { i18nValidationMessage } from 'nestjs-i18n';
+import { IsDefined, IsEmail, IsString, Length } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -11,9 +10,10 @@ export class CreateUserDto {
   @IsEmail({}, { message: 'Invalid email' })
   readonly email: string;
 
-  @IsString()
+  // @IsString()
+  @IsDefined()
   readonly country: string;
- 
+
   @IsString()
   readonly password: string;
 }

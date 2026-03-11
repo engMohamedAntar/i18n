@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { Model } from 'mongoose';
@@ -16,14 +16,20 @@ export class UserService {
 
   async findUsers(): Promise<User[]> {
     const users = await this.userModel.find();
-    return users;
+    const localizedResources =
+      this.userModel.schema.methods.toJSONLocalizedOnly(
+        users,
+        I18nContext.current().lang,
+      );
+
+    return localizedResources;
   }
 
-  async findUserById(id: MongoIdDto): Promise<User> {
+  async findUserById(id: string): Promise<User> {
     const user = await this.userModel.findById(id);
     if (!user) {
       console.log('entered here');
-      
+
       // throw new NotFoundException(`Not found user ${id}`);
       return this.i18n.t('test.NotFound', { lang: I18nContext.current().lang });
     }

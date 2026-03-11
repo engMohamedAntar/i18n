@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-
+import * as mongooseI18n from 'mongoose-i18n-localize';
 // user.schema.ts
 @Schema()
 export class User {
@@ -13,9 +13,14 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop()
+  @Prop({ i18n: true })
   country: string;
 }
 
 export type UserDocument = HydratedDocument<User>;
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.plugin(mongooseI18n, {
+  locales: ['en', 'ar'],
+  defaultLocale: 'en',
+});
