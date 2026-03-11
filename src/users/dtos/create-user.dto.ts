@@ -1,5 +1,7 @@
 //create-user.dto
-import { IsDefined, IsEmail, IsString, Length } from 'class-validator';
+import { IsDefined, IsEmail, IsString, Length, ValidateNested } from 'class-validator';
+import { LocalizedFieldDto } from '../../shared/localized-field.dto';
+import { Type } from 'class-transformer';
 
 export class CreateUserDto {
   @IsString()
@@ -10,9 +12,10 @@ export class CreateUserDto {
   @IsEmail({}, { message: 'Invalid email' })
   readonly email: string;
 
-  // @IsString()
   @IsDefined()
-  readonly country: string;
+  @Type(() => LocalizedFieldDto)
+  @ValidateNested()
+  readonly country: LocalizedFieldDto;
 
   @IsString()
   readonly password: string;
